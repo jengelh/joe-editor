@@ -1,10 +1,12 @@
 # Process this file with autoconf to produce a configure script.
 
 # We need AC_PROG_EGREP
-AC_PREREQ(2.54)
+AC_PREREQ([2.69])
 
 #### Here's the only place where to change version number ####
 AC_INIT(joe, 4.6)
+AC_CONFIG_AUX_DIR([build-aux])
+AC_CONFIG_MACRO_DIR([build-aux])
 AC_CONFIG_SRCDIR([joe/b.c])
 
 AC_CANONICAL_BUILD
@@ -14,7 +16,7 @@ AC_CANONICAL_TARGET
 # Init automake
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
-AM_CONFIG_HEADER(joe/autoconf.h)
+AC_CONFIG_HEADERS([joe/autoconf.h])
 
 # Checks for programs.
 AC_PROG_CC
@@ -125,7 +127,6 @@ AC_CHECK_SIZEOF(off_t, 4)
 AC_CHECK_TYPE([ssize_t], [], [
 	AC_DEFINE([ssize_t], [int], [Define to `int' if <sys/types.h> does not define.])
 	], [])
-AC_TYPE_SIGNAL
 AC_FUNC_STAT
 AC_FUNC_FORK
 AC_CHECK_FUNCS([getcwd getwd])
