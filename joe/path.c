@@ -246,7 +246,7 @@ char *mktmp(const char *where)
 /********************************************************************/
 int chddir(const char *path)
 {
-	char *s = path;
+	const char *s = path;
 	if(path[0] == '~'){
 		if (chdir(getenv("HOME")) != 0){
 			return -1;
