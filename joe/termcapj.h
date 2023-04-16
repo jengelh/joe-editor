@@ -139,13 +139,13 @@ void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptr
 */
 ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1);
 
-/* char *tcompile(CAP *cap,char *str,int a0,int a1,int a2,int a3);
+/* char *tcompile(CAP *cap,char *str,int a0,int a1);
 
    Compile a string capability.  Returns a pointer to a variable length
    string (see vs.h) containing the compiled string capability.
    Pad characters are not placed in the string.
 */
-char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3);
+char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1);
 
 /* Old termcap support */
 #ifdef junk

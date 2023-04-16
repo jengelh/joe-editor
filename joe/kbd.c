@@ -269,7 +269,7 @@ static KMAP *kbuild(CAP *cap, KMAP *kmap, char *seq, MACRO *bind, int *err, cons
 #else
 		s = jgetstr(cap, seq + 1);
 		seq[x] = c;
-		if (s && (iv = tcompile(cap, s, 0, 0, 0, 0))
+		if (s && (iv = tcompile(cap, s, 0, 0))
 		    && (sLEN(iv) > 1 || (signed char)iv[0] < 0)) {
 			capseq = iv;
 			seql = sLEN(iv);

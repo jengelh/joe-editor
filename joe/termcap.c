@@ -703,7 +703,7 @@ static void cpl(void *ptr, char c)
 	ssp = vsadd(ssp, c);
 }
 
-char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3)
+char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1)
 {
 	void (*out) (void *, char) = cap->out;
 	long mydiv = cap->div;
@@ -713,7 +713,7 @@ char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2
 	cap->out = cpl;
 	cap->div = 10000;
 	ssp = vsmk(10);
-	texec(cap, s, 0, a0, a1, a2, a3);
+	texec(cap, s, 0, a0, a1, 0, 0);
 	cap->out = out;
 	cap->div = mydiv;
 	return ssp;
