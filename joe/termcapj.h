@@ -103,7 +103,7 @@ int getnum(CAP *cap, const char *name);
  */
 void rmcap(CAP *cap);
 
-/* void texec(CAP *cap,char *str,int l,int a0,int a1,int a2,int a3);
+/* void texec(CAP *cap,char *str,int l,int a0,int a1);
 
    Execute and output a termcap string capability.
 
@@ -119,7 +119,7 @@ void rmcap(CAP *cap);
 
    'a0' - 'a1' are the arguments for the string
 */
-void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3);
+void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1);
 
 /* int tcost(CAP *cap,char *str, int l, int a0, int a1);
    Return cost in number of characters which need to be sent

@@ -505,7 +505,7 @@ static int outout(int c)
 }
 #endif
 
-void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3)
+void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1)
 {
 	int c;
 	ptrdiff_t x;
@@ -532,8 +532,8 @@ void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptr
 /* Copy args into array (yuk) */
 	args[0] = a0;
 	args[1] = a1;
-	args[2] = a2;
-	args[3] = a3;
+	args[2] = 0;
+	args[3] = 0;
 
 /* Get tenths of MS of padding needed */
 	while (*s >= '0' && *s <= '9')
@@ -692,7 +692,7 @@ ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1
 		return 10000;
 	total = 0;
 	cap->out = cst;
-	texec(cap, s, l, a0, a1, 0, 0);
+	texec(cap, s, l, a0, a1);
 	cap->out = out;
 	return total;
 }
@@ -713,7 +713,7 @@ char *tcompile(CAP *cap, const char *s, ptrdiff_t a0, ptrdiff_t a1)
 	cap->out = cpl;
 	cap->div = 10000;
 	ssp = vsmk(10);
-	texec(cap, s, 0, a0, a1, 0, 0);
+	texec(cap, s, 0, a0, a1);
 	cap->out = out;
 	cap->div = mydiv;
 	return ssp;

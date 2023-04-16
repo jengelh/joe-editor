@@ -156,7 +156,7 @@ static void mfill(int (*dest)[COMPOSE], int val, ptrdiff_t count)
 static void fixupcursor(register SCRN *t)
 {
 	if (t->x == t->co) {
-		texec(t->cap, t->cr, 1, 0, 0, 0, 0);
+		texec(t->cap, t->cr, 1, 0, 0);
 		t->x = 0;
 	}
 }
@@ -172,14 +172,14 @@ int set_attr(SCRN *t, int c)
 
 	if (e) {	/* If any attribute go off, switch them all off: fixes bug on PCs */
 		if (t->me)
-			texec(t->cap, t->me, 1, 0, 0, 0, 0);
+			texec(t->cap, t->me, 1, 0, 0);
 		else {
 			if (t->ue)
-				texec(t->cap, t->ue, 1, 0, 0, 0, 0);
+				texec(t->cap, t->ue, 1, 0, 0);
 			if (t->se)
-				texec(t->cap, t->se, 1, 0, 0, 0, 0);
+				texec(t->cap, t->se, 1, 0, 0);
 			if (t->ZR)
-				texec(t->cap, t->ZR, 1, 0, 0, 0, 0);
+				texec(t->cap, t->ZR, 1, 0, 0);
 		}
 		t->attrib = 0;
 	}
@@ -189,35 +189,35 @@ int set_attr(SCRN *t, int c)
 
 	if (e & INVERSE) {
 		if (t->mr)
-			texec(t->cap, t->mr, 1, 0, 0, 0, 0);
+			texec(t->cap, t->mr, 1, 0, 0);
 		else if (t->so)
-			texec(t->cap, t->so, 1, 0, 0, 0, 0);
+			texec(t->cap, t->so, 1, 0, 0);
 	}
 
 	if (e & UNDERLINE)
 		if (t->us)
-			texec(t->cap, t->us, 1, 0, 0, 0, 0);
+			texec(t->cap, t->us, 1, 0, 0);
 
 	if (e & DOUBLE_UNDERLINE)
 		if (t->dunderline)
-			texec(t->cap, t->dunderline, 1, 0, 0, 0, 0);
+			texec(t->cap, t->dunderline, 1, 0, 0);
 
 	if (e & CROSSED_OUT)
 		if (t->stricken)
-			texec(t->cap, t->stricken, 1, 0, 0, 0, 0);
+			texec(t->cap, t->stricken, 1, 0, 0);
 
 	if (e & BLINK)
 		if (t->mb)
-			texec(t->cap, t->mb, 1, 0, 0, 0, 0);
+			texec(t->cap, t->mb, 1, 0, 0);
 	if (e & BOLD)
 		if (t->md)
-			texec(t->cap, t->md, 1, 0, 0, 0, 0);
+			texec(t->cap, t->md, 1, 0, 0);
 	if (e & DIM)
 		if (t->mh)
-			texec(t->cap, t->mh, 1, 0, 0, 0, 0);
+			texec(t->cap, t->mh, 1, 0, 0);
 	if (e & ITALIC)
 		if (t->ZH)
-			texec(t->cap, t->ZH, 1, 0, 0, 0, 0);
+			texec(t->cap, t->ZH, 1, 0, 0);
 
 	if ((t->attrib & FG_MASK) != (c & FG_MASK)) {
 		if (t->Sf) {
@@ -235,9 +235,9 @@ int set_attr(SCRN *t, int c)
 				ttputs(bf);
 			} else {
 				if (t->Co & (t->Co - 1))
-					texec(t->cap, t->Sf, 1, color % t->Co, 0, 0, 0);
+					texec(t->cap, t->Sf, 1, color % t->Co, 0);
 				else
-					texec(t->cap, t->Sf, 1, color & (t->Co - 1), 0, 0, 0);
+					texec(t->cap, t->Sf, 1, color & (t->Co - 1), 0);
 			}
 		}
 	}
@@ -258,9 +258,9 @@ int set_attr(SCRN *t, int c)
 				ttputs(bf);
 			} else {
 				if (t->Co & (t->Co - 1))
-					texec(t->cap, t->Sb, 1, color % t->Co, 0, 0, 0);
+					texec(t->cap, t->Sb, 1, color % t->Co, 0);
 				else
-					texec(t->cap, t->Sb, 1, color & (t->Co - 1), 0, 0, 0);
+					texec(t->cap, t->Sb, 1, color & (t->Co - 1), 0);
 			}
 		}
 	}
@@ -484,7 +484,7 @@ static void setregn(SCRN *t, ptrdiff_t top, ptrdiff_t bot)
 	if (t->top != top || t->bot != bot) {
 		t->top = top;
 		t->bot = bot;
-		texec(t->cap, t->cs, 1, top, bot - 1, 0, 0);
+		texec(t->cap, t->cs, 1, top, bot - 1);
 		t->x = -1;
 		t->y = -1;
 	}
@@ -495,7 +495,7 @@ static void setregn(SCRN *t, ptrdiff_t top, ptrdiff_t bot)
 int clrins(SCRN *t)
 {
 	if (t->ins != 0) {
-		texec(t->cap, t->ei, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ei, 1, 0, 0);
 		t->ins = 0;
 	}
 	return 0;
@@ -536,7 +536,7 @@ int eraeol(SCRN *t, ptrdiff_t x, ptrdiff_t y, int atr)
 			cpos(t, x, y);
 			if(t->attrib != atr)
 				set_attr(t, atr); 
-			texec(t->cap, t->ce, 1, 0, 0, 0, 0);
+			texec(t->cap, t->ce, 1, 0, 0);
 			mfill(s, ' ', w);
 			msetI(a, atr, w);
 			(*s)[0] = '\n';
@@ -916,11 +916,11 @@ SCRN *nopen(CAP *cap)
 
 /* Send out terminal initialization string */
 	if (t->ti)
-		texec(t->cap, t->ti, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ti, 1, 0, 0);
 	if (!skiptop && t->cl)
-		texec(t->cap, t->cl, 1, 0, 0, 0, 0);
+		texec(t->cap, t->cl, 1, 0, 0);
 	if (t->brp)
-		texec(t->cap, t->brp, 1, 0, 0, 0, 0);
+		texec(t->cap, t->brp, 1, 0, 0);
 
 /* Initialize variable screen size dependent vars */
 	t->scrn = NULL;
@@ -1250,64 +1250,64 @@ static void cposs(register SCRN *t, register ptrdiff_t x, register ptrdiff_t y)
 
 	switch (bestway) {
 	case 1:
-		texec(t->cap, t->cr, 1, 0, 0, 0, 0);
+		texec(t->cap, t->cr, 1, 0, 0);
 		t->x = 0;
 		break;
 	case 2:
-		texec(t->cap, t->ho, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ho, 1, 0, 0);
 		t->x = 0;
 		t->y = hy;
 		break;
 	case 3:
-		texec(t->cap, t->ll, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ll, 1, 0, 0);
 		t->x = 0;
 		t->y = hl;
 		break;
 	case 9:
-		texec(t->cap, t->ll, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ll, 1, 0, 0);
 		t->x = 0;
 		t->y = hl;
 		goto doch;
 	case 11:
-		texec(t->cap, t->ho, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ho, 1, 0, 0);
 		t->x = 0;
 		t->y = hy;
 doch:
 	case 4:
-		texec(t->cap, t->ch, 1, x, 0, 0, 0);
+		texec(t->cap, t->ch, 1, x, 0);
 		t->x = x;
 		break;
 	case 10:
-		texec(t->cap, t->ll, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ll, 1, 0, 0);
 		t->x = 0;
 		t->y = hl;
 		goto docv;
 	case 12:
-		texec(t->cap, t->ho, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ho, 1, 0, 0);
 		t->x = 0;
 		t->y = hy;
 		goto docv;
 	case 8:
-		texec(t->cap, t->cr, 1, 0, 0, 0, 0);
+		texec(t->cap, t->cr, 1, 0, 0);
 		t->x = 0;
 docv:
 	case 5:
-		texec(t->cap, t->cv, 1, y, 0, 0, 0);
+		texec(t->cap, t->cv, 1, y, 0);
 		t->y = y;
 		break;
 	case 6:
-		texec(t->cap, t->cm, 1, y, x, 0, 0);
+		texec(t->cap, t->cm, 1, y, x);
 		t->y = y;
 		t->x = x;
 		break;
 	case 7:
-		texec(t->cap, t->cv, 1, y, 0, 0, 0);
+		texec(t->cap, t->cv, 1, y, 0);
 		t->y = y;
-		texec(t->cap, t->ch, 1, x, 0, 0, 0);
+		texec(t->cap, t->ch, 1, x, 0);
 		t->x = x;
 		break;
 	case 13:
-		texec(t->cap, t->cV, 1, y, 0, 0, 0);
+		texec(t->cap, t->cV, 1, y, 0);
 		t->y = y;
 		t->x = 0;
 		break;
@@ -1319,21 +1319,21 @@ docv:
 	if (y > t->y) {
 		/* Have to go down */
 		if (!t->lf || t->cDO < (y - t->y) * t->clf) {
-			texec(t->cap, t->DO, 1, y - t->y, 0, 0, 0);
+			texec(t->cap, t->DO, 1, y - t->y, 0);
 			t->y = y;
 		} else
 			while (y > t->y) {
-				texec(t->cap, t->lf, 1, 0, 0, 0, 0);
+				texec(t->cap, t->lf, 1, 0, 0);
 				++t->y;
 			}
 	} else if (y < t->y) {
 		/* Have to go up */
 		if (!t->up || t->cUP < (t->y - y) * t->cup) {
-			texec(t->cap, t->UP, 1, t->y - y, 0, 0, 0);
+			texec(t->cap, t->UP, 1, t->y - y, 0);
 			t->y = y;
 		} else
 			while (y < t->y) {
-				texec(t->cap, t->up, 1, 0, 0, 0, 0);
+				texec(t->cap, t->up, 1, 0, 0);
 				--t->y;
 			}
 	}
@@ -1352,14 +1352,14 @@ docv:
 			if (ntabs) {
 				t->x = x - x % t->tw;
 				do {
-					texec(t->cap, t->ta, 1, 0, 0, 0, 0);
+					texec(t->cap, t->ta, 1, 0, 0);
 				} while (--ntabs);
 			}
 		} else if (cstover < t->cRI && cstover < x - t->x) {
 			t->x = t->tw + x - x % t->tw;
 			++ntabs;
 			do {
-				texec(t->cap, t->ta, 1, 0, 0, 0, 0);
+				texec(t->cap, t->ta, 1, 0, 0);
 			} while (--ntabs);
 		}
 	} else if (x < t->x && t->bt) {
@@ -1378,7 +1378,7 @@ docv:
 		    && cstover > cstunder) {
 			if (ntabs) {
 				do {
-					texec(t->cap, t->bt, 1, 0, 0, 0, 0);
+					texec(t->cap, t->bt, 1, 0, 0);
 				} while (--ntabs);
 				t->x = x + t->tw - x % t->tw;
 			}
@@ -1386,7 +1386,7 @@ docv:
 			t->x = x - x % t->tw;
 			++ntabs;
 			do {
-				texec(t->cap, t->bt, 1, 0, 0, 0, 0);
+				texec(t->cap, t->bt, 1, 0, 0);
 			} while (--ntabs);
 		}
 	}
@@ -1395,22 +1395,22 @@ docv:
 	if (x < t->x) {
 		/* Have to go left */
 		if (!t->bs || t->cLE < (t->x - x) * t->cbs) {
-			texec(t->cap, t->LE, 1, t->x - x, 0, 0, 0);
+			texec(t->cap, t->LE, 1, t->x - x, 0);
 			t->x = x;
 		} else
 			while (x < t->x) {
-				texec(t->cap, t->bs, 1, 0, 0, 0, 0);
+				texec(t->cap, t->bs, 1, 0, 0);
 				--t->x;
 			}
 	} else if (x > t->x) {
 		/* Have to go right */
 		/* Hmm.. this should take into account possible attribute changes */
 		if (x-t->x>1 && t->RI) {
-			texec(t->cap, t->RI, 1, x - t->x, 0, 0, 0);
+			texec(t->cap, t->RI, 1, x - t->x, 0);
 			t->x = x;
 		} else {
 			while(x>t->x) {
-				texec(t->cap, t->nd, 1, 0, 0, 0, 0);
+				texec(t->cap, t->nd, 1, 0, 0);
 				++t->x;
 			}
 		}
@@ -1496,7 +1496,7 @@ static void setins(SCRN *t, ptrdiff_t x)
 {
 	if (t->ins != 1 && t->im) {
 		t->ins = 1;
-		texec(t->cap, t->im, 1, x, 0, 0, 0);
+		texec(t->cap, t->im, 1, x, 0);
 	}
 }
 
@@ -1536,14 +1536,14 @@ static void doinschr(SCRN *t, ptrdiff_t x, ptrdiff_t y, int (*s)[COMPOSE], int *
 			if (!t->ic)
 				setins(t, x);
 			for (a = 0; a != n; ++a) {
-				texec(t->cap, t->ic, 1, x, 0, 0, 0);
+				texec(t->cap, t->ic, 1, x, 0);
 				outatri(t, x + a, y, s[a][0], as[a]);
-				texec(t->cap, t->ip, 1, x, 0, 0, 0);
+				texec(t->cap, t->ip, 1, x, 0);
 			}
 			if (!t->mi)
 				clrins(t);
 		} else {
-			texec(t->cap, t->IC, 1, n, 0, 0, 0);
+			texec(t->cap, t->IC, 1, n, 0);
 			for (a = 0; a != n; ++a)
 				outatri(t, x + a, y, s[a][0], as[a]);
 		}
@@ -1564,13 +1564,13 @@ static void dodelchr(SCRN *t, ptrdiff_t x, ptrdiff_t y, ptrdiff_t n)
 		return;
 	if (t->dc || t->DC) {
 		cpos(t, x, y);
-		texec(t->cap, t->dm, 1, x, 0, 0, 0);	/* Enter delete mode */
+		texec(t->cap, t->dm, 1, x, 0);	/* Enter delete mode */
 		if ((n == 1 && t->dc) || !t->DC)
 			for (a = n; a; --a)
-				texec(t->cap, t->dc, 1, x, 0, 0, 0);
+				texec(t->cap, t->dc, 1, x, 0);
 		else
-			texec(t->cap, t->DC, 1, n, 0, 0, 0);
-		texec(t->cap, t->ed, 1, x, 0, 0, 0);	/* Exit delete mode */
+			texec(t->cap, t->DC, 1, n, 0);
+		texec(t->cap, t->ed, 1, x, 0);	/* Exit delete mode */
 	}
 	mmove(t->scrn + t->co * y + x, t->scrn + t->co * y + x + n, (t->co - (x + n)) * SIZEOF(int [COMPOSE]));
 	mmove(t->attr + t->co * y + x, t->attr + t->co * y + x + n, (t->co - (x + n)) * SIZEOF(int));
@@ -1697,9 +1697,9 @@ static void doupscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, t->li - 1);
 		if ((amnt == 1 && t->sf) || !t->SF)
 			while (a--)
-				texec(t->cap, t->sf, 1, t->li - 1, 0, 0, 0);
+				texec(t->cap, t->sf, 1, t->li - 1, 0);
 		else
-			texec(t->cap, t->SF, a, a, 0, 0, 0);
+			texec(t->cap, t->SF, a, a, 0);
 		goto done;
 	}
 	if (bot == t->li && (t->dl || t->DL)) {
@@ -1707,9 +1707,9 @@ static void doupscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, top);
 		if ((amnt == 1 && t->dl) || !t->DL)
 			while (a--)
-				texec(t->cap, t->dl, 1, top, 0, 0, 0);
+				texec(t->cap, t->dl, 1, top, 0);
 		else
-			texec(t->cap, t->DL, a, a, 0, 0, 0);
+			texec(t->cap, t->DL, a, a, 0);
 		goto done;
 	}
 	if (t->cs && (t->sf || t->SF)) {
@@ -1717,25 +1717,25 @@ static void doupscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, bot - 1);
 		if ((amnt == 1 && t->sf) || !t->SF)
 			while (a--)
-				texec(t->cap, t->sf, 1, bot - 1, 0, 0, 0);
+				texec(t->cap, t->sf, 1, bot - 1, 0);
 		else
-			texec(t->cap, t->SF, a, a, 0, 0, 0);
+			texec(t->cap, t->SF, a, a, 0);
 		goto done;
 	}
 	if ((t->dl || t->DL) && (t->al || t->AL)) {
 		cpos(t, 0, top);
 		if ((amnt == 1 && t->dl) || !t->DL)
 			while (a--)
-				texec(t->cap, t->dl, 1, top, 0, 0, 0);
+				texec(t->cap, t->dl, 1, top, 0);
 		else
-			texec(t->cap, t->DL, a, a, 0, 0, 0);
+			texec(t->cap, t->DL, a, a, 0);
 		a = amnt;
 		cpos(t, 0, bot - amnt);
 		if ((amnt == 1 && t->al) || !t->AL)
 			while (a--)
-				texec(t->cap, t->al, 1, bot - amnt, 0, 0, 0);
+				texec(t->cap, t->al, 1, bot - amnt, 0);
 		else
-			texec(t->cap, t->AL, a, a, 0, 0, 0);
+			texec(t->cap, t->AL, a, a, 0);
 		goto done;
 	}
 	msetI(t->updtab + top, 1, bot - top);
@@ -1767,9 +1767,9 @@ static void dodnscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, 0);
 		if ((amnt == 1 && t->sr) || !t->SR)
 			while (a--)
-				texec(t->cap, t->sr, 1, 0, 0, 0, 0);
+				texec(t->cap, t->sr, 1, 0, 0);
 		else
-			texec(t->cap, t->SR, a, a, 0, 0, 0);
+			texec(t->cap, t->SR, a, a, 0);
 		goto done;
 	}
 	if (bot == t->li && (t->al || t->AL)) {
@@ -1777,9 +1777,9 @@ static void dodnscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, top);
 		if ((amnt == 1 && t->al) || !t->AL)
 			while (a--)
-				texec(t->cap, t->al, 1, top, 0, 0, 0);
+				texec(t->cap, t->al, 1, top, 0);
 		else
-			texec(t->cap, t->AL, a, a, 0, 0, 0);
+			texec(t->cap, t->AL, a, a, 0);
 		goto done;
 	}
 	if (t->cs && (t->sr || t->SR)) {
@@ -1787,25 +1787,25 @@ static void dodnscrl(SCRN *t, ptrdiff_t top, ptrdiff_t bot, ptrdiff_t amnt, int 
 		cpos(t, 0, top);
 		if ((amnt == 1 && t->sr) || !t->SR)
 			while (a--)
-				texec(t->cap, t->sr, 1, top, 0, 0, 0);
+				texec(t->cap, t->sr, 1, top, 0);
 		else
-			texec(t->cap, t->SR, a, a, 0, 0, 0);
+			texec(t->cap, t->SR, a, a, 0);
 		goto done;
 	}
 	if ((t->dl || t->DL) && (t->al || t->AL)) {
 		cpos(t, 0, bot - amnt);
 		if ((amnt == 1 && t->dl) || !t->DL)
 			while (a--)
-				texec(t->cap, t->dl, 1, bot - amnt, 0, 0, 0);
+				texec(t->cap, t->dl, 1, bot - amnt, 0);
 		else
-			texec(t->cap, t->DL, a, a, 0, 0, 0);
+			texec(t->cap, t->DL, a, a, 0);
 		a = amnt;
 		cpos(t, 0, top);
 		if ((amnt == 1 && t->al) || !t->AL)
 			while (a--)
-				texec(t->cap, t->al, 1, top, 0, 0, 0);
+				texec(t->cap, t->al, 1, top, 0);
 		else
-			texec(t->cap, t->AL, a, a, 0, 0, 0);
+			texec(t->cap, t->AL, a, a, 0);
 		goto done;
 	}
 	msetI(t->updtab + top, 1, bot - top);
@@ -1870,20 +1870,20 @@ void nescape(SCRN *t)
 	cpos(t, 0, t->li - 1);
 	eraeol(t, 0, t->li - 1, 0);
 	if (t->bre)
-		texec(t->cap, t->bre, 1, 0, 0, 0, 0);
+		texec(t->cap, t->bre, 1, 0, 0);
 	if (t->te)
-		texec(t->cap, t->te, 1, 0, 0, 0, 0);
+		texec(t->cap, t->te, 1, 0, 0);
 }
 
 void nreturn(SCRN *t)
 {
 	mouseopen();
 	if (t->ti)
-		texec(t->cap, t->ti, 1, 0, 0, 0, 0);
+		texec(t->cap, t->ti, 1, 0, 0);
 	if (!skiptop && t->cl)
-		texec(t->cap, t->cl, 1, 0, 0, 0, 0);
+		texec(t->cap, t->cl, 1, 0, 0);
 	if (t->brp)
-		texec(t->cap, t->brp, 1, 0, 0, 0, 0);
+		texec(t->cap, t->brp, 1, 0, 0);
 	nredraw(t);
 }
 
@@ -1896,9 +1896,9 @@ void nclose(SCRN *t)
 	setregn(t, 0, t->li);
 	cpos(t, 0, t->li - 1);
 	if (t->bre)
-		texec(t->cap, t->bre, 1, 0, 0, 0, 0);
+		texec(t->cap, t->bre, 1, 0, 0);
 	if (t->te)
-		texec(t->cap, t->te, 1, 0, 0, 0, 0);
+		texec(t->cap, t->te, 1, 0, 0);
 	ttclose();
 	rmcap(t->cap);
 	joe_free(t->scrn);
@@ -1982,14 +1982,14 @@ void nredraw(SCRN *t)
 	if (!skiptop) {
 #if 0 // Leave screen contents invalid.  This way line update emits explicit spaces.
 		if (t->cl) {
-			texec(t->cap, t->cl, 1, 0, 0, 0, 0);
+			texec(t->cap, t->cl, 1, 0, 0);
 			t->x = 0;
 			t->y = 0;
 			mfill(t->scrn, ' ', t->li * t->co);
 			msetI(t->attr, BG_COLOR(bg_text), t->li * t->co); 
 		} else if (t->cd) {
 			cpos(t, 0, 0);
-			texec(t->cap, t->cd, 1, 0, 0, 0, 0);
+			texec(t->cap, t->cd, 1, 0, 0);
 			mfill(t->scrn, ' ', t->li * t->co);
 			msetI(t->attr, BG_COLOR(bg_text), t->li * t->co); 
 		}
