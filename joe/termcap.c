@@ -684,7 +684,7 @@ static void cst(void *ptr, char c)
 	++total;
 }
 
-ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3)
+ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1)
 {
 	void (*out) (void *, char) = cap->out;
 
@@ -692,7 +692,7 @@ ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1
 		return 10000;
 	total = 0;
 	cap->out = cst;
-	texec(cap, s, l, a0, a1, a2, a3);
+	texec(cap, s, l, a0, a1, 0, 0);
 	cap->out = out;
 	return total;
 }

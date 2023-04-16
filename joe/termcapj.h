@@ -121,7 +121,7 @@ void rmcap(CAP *cap);
 */
 void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3);
 
-/* int tcost(CAP *cap,char *str, int l, int a0, int a1, int a2, int a3);
+/* int tcost(CAP *cap,char *str, int l, int a0, int a1);
    Return cost in number of characters which need to be sent
    to execute a termcap string capability.
 
@@ -135,9 +135,9 @@ void texec(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptr
    the current cursor position and the end of the screen should be
    given here.
 
-   'a0' - 'a3' are arguments passed to the string
+   'a0' - 'a1' are arguments passed to the string
 */
-ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1, ptrdiff_t a2, ptrdiff_t a3);
+ptrdiff_t tcost(CAP *cap, const char *s, ptrdiff_t l, ptrdiff_t a0, ptrdiff_t a1);
 
 /* char *tcompile(CAP *cap,char *str,int a0,int a1,int a2,int a3);
 

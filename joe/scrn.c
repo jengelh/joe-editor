@@ -803,15 +803,15 @@ SCRN *nopen(CAP *cap)
 	if (getflag(t->cap,"bs"))
 		t->bs ="\10";
 
-	t->cbs = tcost(t->cap, t->bs, 1, 2, 2, 0, 0);
+	t->cbs = tcost(t->cap, t->bs, 1, 2, 2);
 
 	t->lf ="\12";
 	if (jgetstr(t->cap,"do"))
 		t->lf = jgetstr(t->cap,"do");
-	t->clf = tcost(t->cap, t->lf, 1, 2, 2, 0, 0);
+	t->clf = tcost(t->cap, t->lf, 1, 2, 2);
 
 	t->up = jgetstr(t->cap,"up");
-	t->cup = tcost(t->cap, t->up, 1, 2, 2, 0, 0);
+	t->cup = tcost(t->cap, t->up, 1, 2, 2);
 
 	t->nd = jgetstr(t->cap,"nd");
 
@@ -835,31 +835,31 @@ SCRN *nopen(CAP *cap)
 		t->bt = NULL;
 	}
 
-	t->cta = tcost(t->cap, t->ta, 1, 2, 2, 0, 0);
-	t->cbt = tcost(t->cap, t->bt, 1, 2, 2, 0, 0);
+	t->cta = tcost(t->cap, t->ta, 1, 2, 2);
+	t->cbt = tcost(t->cap, t->bt, 1, 2, 2);
 
 	t->ho = jgetstr(t->cap,"ho");
-	t->cho = tcost(t->cap, t->ho, 1, 2, 2, 0, 0);
+	t->cho = tcost(t->cap, t->ho, 1, 2, 2);
 	t->ll = jgetstr(t->cap,"ll");
-	t->cll = tcost(t->cap, t->ll, 1, 2, 2, 0, 0);
+	t->cll = tcost(t->cap, t->ll, 1, 2, 2);
 
 	t->cr ="\15";
 	if (jgetstr(t->cap,"cr"))
 		t->cr = jgetstr(t->cap,"cr");
 	if (getflag(t->cap,"nc") || getflag(t->cap,"xr"))
 		t->cr = NULL;
-	t->ccr = tcost(t->cap, t->cr, 1, 2, 2, 0, 0);
+	t->ccr = tcost(t->cap, t->cr, 1, 2, 2);
 
-	t->cRI = tcost(t->cap, t->RI = jgetstr(t->cap,"RI"), 1, 2, 2, 0, 0);
-	t->cLE = tcost(t->cap, t->LE = jgetstr(t->cap,"LE"), 1, 2, 2, 0, 0);
-	t->cUP = tcost(t->cap, t->UP = jgetstr(t->cap,"UP"), 1, 2, 2, 0, 0);
-	t->cDO = tcost(t->cap, t->DO = jgetstr(t->cap,"DO"), 1, 2, 2, 0, 0);
-	t->cch = tcost(t->cap, t->ch = jgetstr(t->cap,"ch"), 1, 2, 2, 0, 0);
-	t->ccv = tcost(t->cap, t->cv = jgetstr(t->cap,"cv"), 1, 2, 2, 0, 0);
-	t->ccV = tcost(t->cap, t->cV = jgetstr(t->cap,"cV"), 1, 2, 2, 0, 0);
-	t->ccm = tcost(t->cap, t->cm = jgetstr(t->cap,"cm"), 1, 2, 2, 0, 0);
+	t->cRI = tcost(t->cap, t->RI = jgetstr(t->cap,"RI"), 1, 2, 2);
+	t->cLE = tcost(t->cap, t->LE = jgetstr(t->cap,"LE"), 1, 2, 2);
+	t->cUP = tcost(t->cap, t->UP = jgetstr(t->cap,"UP"), 1, 2, 2);
+	t->cDO = tcost(t->cap, t->DO = jgetstr(t->cap,"DO"), 1, 2, 2);
+	t->cch = tcost(t->cap, t->ch = jgetstr(t->cap,"ch"), 1, 2, 2);
+	t->ccv = tcost(t->cap, t->cv = jgetstr(t->cap,"cv"), 1, 2, 2);
+	t->ccV = tcost(t->cap, t->cV = jgetstr(t->cap,"cV"), 1, 2, 2);
+	t->ccm = tcost(t->cap, t->cm = jgetstr(t->cap,"cm"), 1, 2, 2);
 
-	t->cce = tcost(t->cap, t->ce = jgetstr(t->cap,"ce"), 1, 2, 2, 0, 0);
+	t->cce = tcost(t->cap, t->ce = jgetstr(t->cap,"ce"), 1, 2, 2);
 
 /* Make sure terminal can do absolute positioning */
 	if (t->cm)
@@ -1153,7 +1153,7 @@ static void cposs(register SCRN *t, register ptrdiff_t x, register ptrdiff_t y)
  */
 
 	if (t->ccm < bestcost) {
-		cost = tcost(t->cap, t->cm, 1, y, x, 0, 0);
+		cost = tcost(t->cap, t->cm, 1, y, x);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 6;
@@ -1181,63 +1181,63 @@ static void cposs(register SCRN *t, register ptrdiff_t x, register ptrdiff_t y)
 		}
 	}
 	if (t->cch < bestcost && x != t->x) {
-		cost = relcost(t, x, y, x, t->y) + tcost(t->cap, t->ch, 1, x, 0, 0, 0);
+		cost = relcost(t, x, y, x, t->y) + tcost(t->cap, t->ch, 1, x, 0);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 4;
 		}
 	}
 	if (t->ccv < bestcost && y != t->y) {
-		cost = relcost(t, x, y, t->x, y) + tcost(t->cap, t->cv, 1, y, 0, 0, 0);
+		cost = relcost(t, x, y, t->x, y) + tcost(t->cap, t->cv, 1, y, 0);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 5;
 		}
 	}
 	if (t->ccV < bestcost) {
-		cost = relcost(t, x, y, 0, y) + tcost(t->cap, t->cV, 1, y, 0, 0, 0);
+		cost = relcost(t, x, y, 0, y) + tcost(t->cap, t->cV, 1, y, 0);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 13;
 		}
 	}
 	if (t->cch + t->ccv < bestcost && x != t->x && y != t->y) {
-		cost = tcost(t->cap, t->cv, 1, y - hy, 0, 0, 0) + tcost(t->cap, t->ch, 1, x, 0, 0, 0);
+		cost = tcost(t->cap, t->cv, 1, y - hy, 0) + tcost(t->cap, t->ch, 1, x, 0);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 7;
 		}
 	}
 	if (t->ccv + t->ccr < bestcost && y != t->y) {
-		cost = tcost(t->cap, t->cv, 1, y, 0, 0, 0) + tcost(t->cap, t->cr, 1, 0, 0, 0, 0) + relcost(t, x, y, 0, y);
+		cost = tcost(t->cap, t->cv, 1, y, 0) + tcost(t->cap, t->cr, 1, 0, 0) + relcost(t, x, y, 0, y);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 8;
 		}
 	}
 	if (t->cll + t->cch < bestcost) {
-		cost = tcost(t->cap, t->ll, 1, 0, 0, 0, 0) + tcost(t->cap, t->ch, 1, x, 0, 0, 0) + relcost(t, x, y, x, hl);
+		cost = tcost(t->cap, t->ll, 1, 0, 0) + tcost(t->cap, t->ch, 1, x, 0) + relcost(t, x, y, x, hl);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 9;
 		}
 	}
 	if (t->cll + t->ccv < bestcost) {
-		cost = tcost(t->cap, t->ll, 1, 0, 0, 0, 0) + tcost(t->cap, t->cv, 1, y, 0, 0, 0) + relcost(t, x, y, 0, y);
+		cost = tcost(t->cap, t->ll, 1, 0, 0) + tcost(t->cap, t->cv, 1, y, 0) + relcost(t, x, y, 0, y);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 10;
 		}
 	}
 	if (t->cho + t->cch < bestcost) {
-		cost = tcost(t->cap, t->ho, 1, 0, 0, 0, 0) + tcost(t->cap, t->ch, 1, x, 0, 0, 0) + relcost(t, x, y, x, hy);
+		cost = tcost(t->cap, t->ho, 1, 0, 0) + tcost(t->cap, t->ch, 1, x, 0) + relcost(t, x, y, x, hy);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 11;
 		}
 	}
 	if (t->cho + t->ccv < bestcost) {
-		cost = tcost(t->cap, t->ho, 1, 0, 0, 0, 0) + tcost(t->cap, t->cv, 1, y, 0, 0, 0) + relcost(t, x, y, 0, y);
+		cost = tcost(t->cap, t->ho, 1, 0, 0) + tcost(t->cap, t->cv, 1, y, 0) + relcost(t, x, y, 0, y);
 		if (cost < bestcost) {
 			bestcost = cost;
 			bestway = 12;
